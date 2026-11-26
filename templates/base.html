@@ -1,0 +1,50 @@
+<!--
+Fecha: 24.11.2026
+Responsable: Manuel Sandoval
+Descripción:
+Plantilla base de la aplicación web Flask.
+Define la estructura común de todas las páginas (encabezado,
+contenido y pie de página) y carga la hoja de estilos CSS.
+Las demás páginas la extienden mediante bloques de Jinja2.
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título de la aplicación -->
+    <title>{% block titulo %}Aplicación Flask{% endblock %}</title>
+
+    <!-- Conexión con el archivo CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+
+<body>
+
+    <!-- Encabezado principal -->
+    <header class="encabezado">
+        <h1>{% block encabezado %}{% endblock %}</h1>
+        <p>{% block subtitulo %}{% endblock %}</p>
+    </header>
+
+    <!-- Contenido específico de cada página -->
+    <main class="contenedor">
+
+        {% block contenido %}
+        {% endblock %}
+
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="pie-pagina">
+        <p>Desarrollado por Manuel Sandoval</p>
+    </footer>
+
+</body>
+
+</html>

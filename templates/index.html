@@ -1,0 +1,39 @@
+<!--
+Fecha: 24.11.2026
+Responsable: Manuel Sandoval
+Descripción:
+Página principal de la aplicación web.
+Presenta el menú de navegación hacia los dos ejercicios.
+-->
+
+{% extends "base.html" %}
+
+{% block titulo %}Menú Principal{% endblock %}
+
+{% block encabezado %}Aplicación Web{% endblock %}
+
+{% block subtitulo %}Selecciona el ejercicio que deseas desarrollar{% endblock %}
+
+{% block contenido %}
+
+    <h2 class="titulo-formulario">Menú principal</h2>
+
+    <p class="descripcion">
+        Selecciona una de las siguientes opciones.
+    </p>
+
+    <div class="menu">
+
+        <!-- Botón para acceder al Ejercicio 1 -->
+        <a href="{{ url_for('ejercicio1') }}" class="boton-menu ejercicio-1">
+            Ejercicio 1
+        </a>
+
+        <!-- Botón para acceder al Ejercicio 2 -->
+        <a href="{{ url_for('ejercicio2') }}" class="boton-menu ejercicio-2">
+            Ejercicio 2
+        </a>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,145 @@
+<!--
+Fecha: 24.11.2026
+Responsable: Manuel Sandoval
+Descripción:
+Plantilla HTML correspondiente al Ejercicio 1 de la aplicación web Flask.
+Permite ingresar el nombre del cliente, su edad y la cantidad de
+tarros de pintura que desea comprar.
+
+Los datos son enviados al servidor mediante un formulario POST,
+donde Python valida los datos, realiza el cálculo del total de la
+compra y aplica el descuento correspondiente según la edad del cliente.
+
+Los resultados se muestran en la misma página del formulario.
+-->
+
+{% extends "base.html" %}
+
+{% block titulo %}Ejercicio 1 - Cálculo de compras{% endblock %}
+
+{% block encabezado %}Ejercicio 1{% endblock %}
+
+{% block subtitulo %}Cálculo de compras de pintura{% endblock %}
+
+{% block contenido %}
+
+    <!-- Título y descripción del formulario -->
+    <section class="seccion-formulario">
+
+        <h2>Ingrese los datos del cliente</h2>
+
+        <p class="descripcion">
+            Complete los datos para calcular el valor de su compra
+            y determinar el descuento correspondiente.
+        </p>
+
+        <!-- Mensajes de error enviados desde Flask -->
+        {% if errores %}
+        <div class="mensaje-error">
+
+            <h3>Validación de datos</h3>
+
+            <ul>
+                {% for error in errores %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        {% endif %}
+
+        <!-- Formulario de ingreso de datos -->
+        <form method="POST" action="{{ url_for('ejercicio1') }}">
+
+            <!-- Campo nombre -->
+            <div class="campo-formulario">
+                <label for="nombre">Nombre del cliente:</label>
+
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    value="{{ valores.nombre }}"
+                    placeholder="Ingrese su nombre"
+                    required>
+            </div>
+
+            <!-- Campo edad -->
+            <div class="campo-formulario">
+                <label for="edad">Edad:</label>
+
+                <input
+                    type="number"
+                    id="edad"
+                    name="edad"
+                    value="{{ valores.edad }}"
+                    placeholder="Ingrese su edad"
+                    min="1"
+                    required>
+            </div>
+
+            <!-- Campo cantidad de tarros -->
+            <div class="campo-formulario">
+                <label for="cantidad">Cantidad de tarros de pintura:</label>
+
+                <input
+                    type="number"
+                    id="cantidad"
+                    name="cantidad"
+                    value="{{ valores.cantidad }}"
+                    placeholder="Ingrese la cantidad de tarros"
+                    min="1"
+                    required>
+            </div>
+
+            <!-- Botón para calcular -->
+            <button type="submit" class="boton-principal">
+                Calcular
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- Sección de resultados -->
+    {% if resultado %}
+
+        <section class="resultado">
+
+            <h2>Resultado de la compra</h2>
+
+            <p>
+                <strong>Nombre del cliente:</strong>
+                {{ resultado.nombre }}
+            </p>
+
+            <p>
+                <strong>Total sin descuento:</strong>
+                ${{ resultado.total_sin_descuento|pesos }}
+            </p>
+
+            <p>
+                <strong>Descuento aplicado:</strong>
+                {{ resultado.descuento_porcentaje }}%
+            </p>
+
+            <p>
+                <strong>Monto del descuento:</strong>
+                ${{ resultado.monto_descuento|pesos }}
+            </p>
+
+            <p class="total-final">
+                <strong>Total a pagar:</strong>
+                ${{ resultado.total_pagar|pesos }}
+            </p>
+
+        </section>
+
+    {% endif %}
+
+    <!-- Botón para volver al menú -->
+    <a href="{{ url_for('index') }}" class="boton-secundario">
+        Volver al menú principal
+    </a>
+
+{% endblock %}

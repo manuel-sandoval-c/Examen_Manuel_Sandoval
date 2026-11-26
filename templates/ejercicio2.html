@@ -1,0 +1,86 @@
+<!--
+Fecha: 24.11.2026
+Responsable: Manuel Sandoval
+Descripción:
+Formulario de inicio de sesión del Ejercicio 2.
+Permite ingresar un usuario y contraseña, validar las credenciales
+y mostrar el resultado en la misma página.
+-->
+
+{% extends "base.html" %}
+
+{% block titulo %}Ejercicio 2 - Inicio de sesión{% endblock %}
+
+{% block encabezado %}Ejercicio 2{% endblock %}
+
+{% block subtitulo %}Inicio de sesión{% endblock %}
+
+{% block contenido %}
+
+    <section class="seccion-formulario">
+
+        <h2>Ingrese sus datos</h2>
+
+        <p class="descripcion">
+            Ingrese su nombre de usuario y contraseña para verificar
+            sus credenciales.
+        </p>
+
+        <!-- Formulario de inicio de sesión -->
+        <form method="POST" action="{{ url_for('ejercicio2') }}">
+
+            <!-- Campo de usuario -->
+            <div class="campo-formulario">
+                <label for="usuario">Nombre de usuario:</label>
+
+                <input
+                    type="text"
+                    id="usuario"
+                    name="usuario"
+                    value="{{ usuario }}"
+                    placeholder="Ingrese su usuario"
+                    required>
+            </div>
+
+            <!-- Campo de contraseña -->
+            <div class="campo-formulario">
+                <label for="contrasena">Contraseña:</label>
+
+                <input
+                    type="password"
+                    id="contrasena"
+                    name="contrasena"
+                    placeholder="Ingrese su contraseña"
+                    required>
+            </div>
+
+            <!-- Botón para validar -->
+            <button type="submit" class="boton-principal">
+                Verificar
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- Mostrar resultado de la validación -->
+    {% if mensaje %}
+
+        <section class="resultado">
+
+            <h2>Resultado del inicio de sesión</h2>
+
+            <p class="{{ clase_mensaje }}">
+                {{ mensaje }}
+            </p>
+
+        </section>
+
+    {% endif %}
+
+    <!-- Volver al menú principal -->
+    <a href="{{ url_for('index') }}" class="boton-secundario">
+        Volver al menú principal
+    </a>
+
+{% endblock %}
